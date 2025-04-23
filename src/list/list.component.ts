@@ -31,8 +31,26 @@ export class ListComponent {
   onSearch(e: Event): void {
     const target = e.target as HTMLInputElement;
     if(e){
+      console.log(this.data.map((d:any)=>d.name.toLowerCase()));
+      
       this.data = this.data2.filter((data:any)=> data.name.toLowerCase().includes(target.value))
     }
   }
+
+  onSort(s:boolean){
+    
+  }
   
+  sort(a:any[]){
+    for (var i = 0; i < a.length; i++) {
+      for (var j = i; j < a.length; j++) {
+        if(a[i] > a[j]){
+          let b = a[i]
+          a[i] = a[j]
+          a[j] = b
+        }
+      }
+    }
+    return a
+  }
 }
