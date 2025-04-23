@@ -28,7 +28,7 @@ export class ListComponent {
     })
   }
 
-  onSearch(e: Event): void {2
+  onSearch(e: Event): void {
     const target = e.target as HTMLInputElement;
     if(e){
       this.data = this.data2.filter((data:any)=> data.name.toLowerCase().includes(target.value))
