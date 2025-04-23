@@ -1,0 +1,23 @@
+<div class="table-responsive p-3">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+        </tr>
+        <tr>
+            <td class="p-1">
+                <input type="text" class="form-control" placeholder="Searh Name" (input)="onSearch($event)">
+            </td>
+            <td></td>
+            <td></td>
+        </tr>
+        @for(d of data; track $index){
+            <tr>
+                <td>{{d.name}}</td>
+                <td>{{d.username}}</td>
+                <td>{{d.email}}</td>
+            </tr>
+        }
+    </table>
+</div>
