@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
+enum ORDER {
+  Normal,
+  ASC,
+  DESC
+}
+
 @Component({
   selector: 'app-list',
   imports: [],
@@ -9,12 +15,15 @@ import { Component } from '@angular/core';
 })
 export class ListComponent {
 
+  ORDER = ORDER;
+
   data:any = []
   constructor(
     private http: HttpClient
   ){
 
   }
+  order = 0
 
   ngOnInit(){
     this.getData()
@@ -37,14 +46,20 @@ export class ListComponent {
     }
   }
 
-  onSort(s:boolean){
+
+  onSort(){
+    this.order++
+    if (this.order == 3) this.order = 0
+
+    let a = this.sort(this.data2)
+    console.log(a,"ad");
     
   }
   
   sort(a:any[]){
     for (var i = 0; i < a.length; i++) {
       for (var j = i; j < a.length; j++) {
-        if(a[i] > a[j]){
+        if(a[i].username > a[j].username){
           let b = a[i]
           a[i] = a[j]
           a[j] = b

@@ -2,7 +2,9 @@
     <table>
         <tr>
             <th>Name</th>
-            <th>Username</th>
+            <th>Username
+                <span (click)="onSort()">{{ORDER[order]}}</span>
+            </th>
             <th>Email</th>
         </tr>
         <tr>
@@ -14,9 +16,9 @@
         </tr>
         @for(d of data; track $index){
             <tr>
-                <td>{{d.name}}</td>
-                <td>{{d.username}}</td>
-                <td>{{d.email}}</td>
+                <td width="40%">{{d.name}}</td>
+                <td width="30%">{{d.username}}</td>
+                <td width="30%">{{d.email}}</td>
             </tr>
         }
     </table>
