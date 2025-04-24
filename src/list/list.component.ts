@@ -51,21 +51,28 @@ export class ListComponent {
     this.order++
     if (this.order == 3) this.order = 0
 
-    let a = this.sort(this.data2)
-    console.log(a,"ad");
+    // console.log(this.order,"ad");
+    let b = this.sort(this.data2,this.order)
+    // let a = this.order == 0 ?this.data: b
+    // let a = this.sort(this.data2,this.order)
+    console.log(this.data2,"ad");
     
   }
   
-  sort(a:any[]){
+  sort(a:any[],order:number){
     for (var i = 0; i < a.length; i++) {
       for (var j = i; j < a.length; j++) {
-        if(a[i].username > a[j].username){
-          let b = a[i]
-          a[i] = a[j]
-          a[j] = b
-        }
+          if(order == 1 && a[i].username > a[j].username){
+            let b = a[i]
+            a[i] = a[j]
+            a[j] = b
+          }
+          if(order == 2 && a[i].username < a[j].username){
+            let b = a[i]
+            a[i] = a[j]
+            a[j] = b
+          }
       }
     }
-    return a
   }
 }
