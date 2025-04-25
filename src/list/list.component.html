@@ -2,8 +2,11 @@
     <table>
         <tr>
             <th>Name</th>
-            <th>Username
-                <span (click)="onSort()">{{ORDER[order]}}</span>
+            <th>
+                <span>Username</span>
+                    <button type="button" (click)="onSort()">
+                        {{ORDER_LABELS[order]}}
+                    </button>
             </th>
             <th>Email</th>
         </tr>

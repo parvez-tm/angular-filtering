@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
-enum ORDER {
-  Normal,
-  ASC,
-  DESC
+enum SortOrder {
+  None = 0,
+  Asc = 1,
+  Desc = 2,
 }
 
 @Component({
@@ -15,51 +15,58 @@ enum ORDER {
 })
 export class ListComponent {
 
-  ORDER = ORDER;
+  ORDER = SortOrder;
+  ORDER_LABELS = ['↕', '↑', '↓'];
 
-  data:any = []
+  // order = 0
+  order: SortOrder = SortOrder.None;
+  data2:any[] = []
+  data:any[] = []
   constructor(
     private http: HttpClient
   ){
 
   }
-  order = 0
 
   ngOnInit(){
     this.getData()
   }
 
-  data2:any
   getData(){
     this.http.get('https://jsonplaceholder.typicode.com/users').subscribe((data:any)=>{
-      this.data = data
-      this.data2 = data
+      // this.data = data
+      // this.data2 = data
+      this.data = data;
+      this.data2 = [...data]; // or use JSON.parse(JSON.stringify(data)) for deep clone if needed
+
     })
   }
 
   onSearch(e: Event): void {
     const target = e.target as HTMLInputElement;
     if(e){
-      console.log(this.data.map((d:any)=>d.name.toLowerCase()));
-      
       this.data = this.data2.filter((data:any)=> data.name.toLowerCase().includes(target.value))
     }
   }
 
 
-  onSort(){
-    this.order++
-    if (this.order == 3) this.order = 0
-
-    // console.log(this.order,"ad");
-    let b = this.sort(this.data2,this.order)
-    // let a = this.order == 0 ?this.data: b
-    // let a = this.sort(this.data2,this.order)
-    console.log(this.data2,"ad");
+  // onSort(){
+  //   this.order++
+  //   if (this.order == 3) this.order = 0
+  //   // console.log(this.order,"ad");
     
-  }
+  //   this.data = this.order == 0 ? this.data : this.sort(this.data2,this.order)
+    
+  // }
   
-  sort(a:any[],order:number){
+  onSort(): void {
+    this.order = (this.order + 1) % 3;
+    console.log(this.order,"kj");
+    
+    // this.sortData();
+  }
+
+  sort(a:any,order:number){
     for (var i = 0; i < a.length; i++) {
       for (var j = i; j < a.length; j++) {
           if(order == 1 && a[i].username > a[j].username){
@@ -74,5 +81,18 @@ export class ListComponent {
           }
       }
     }
+    return a
   }
+
+  sortData(): void {
+    const sorted = [...this.data]; // work on a clone
+    if (this.order === SortOrder.Asc) {
+      sorted.sort((a, b) => a.username.localeCompare(b.username));
+    } else if (this.order === SortOrder.Desc) {
+      sorted.sort((a, b) => b.username.localeCompare(a.username));
+    }
+    this.data = sorted;
+  }
+
+
 }
