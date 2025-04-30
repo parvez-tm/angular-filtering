@@ -49,24 +49,13 @@ export class ListComponent {
     }
   }
 
-
-  // onSort(){
-  //   this.order++
-  //   if (this.order == 3) this.order = 0
-  //   // console.log(this.order,"ad");
-    
-  //   this.data = this.order == 0 ? this.data : this.sort(this.data2,this.order)
-    
-  // }
-  
   onSort(): void {
     this.order = (this.order + 1) % 3;
-    console.log(this.order,"kj");
-    
-    // this.sortData();
+    this.data = this.order == 0 ? this.data2 :this.sort(this.order)
   }
 
-  sort(a:any,order:number){
+  sort(order:number){
+    let a = [...this.data]
     for (var i = 0; i < a.length; i++) {
       for (var j = i; j < a.length; j++) {
           if(order == 1 && a[i].username > a[j].username){
